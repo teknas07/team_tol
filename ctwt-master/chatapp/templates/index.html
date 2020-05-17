@@ -1,0 +1,2245 @@
+{% extends "base_generic.html" %}
+{% comment %}
+
+This is logged in page, this will display the list
+of users who have sent message to the logged in user.
+
+{% endcomment %}
+
+
+{% block content %}
+<!-- <h1>Home </h1>
+<p>Welcome to this appplication, chat now</p> -->
+
+<!-- <h2>Dynamic content</h2>
+<ul>
+    <li><strong>Users:</strong>{{ num_users }}</li>
+    <li><strong>Logged in user: </strong>{{ curr_name }}</li>
+</ul> -->
+<!-- <h1>List of recieved messages</h2>
+<ul>
+    {% for obj in unique_list %}
+    <a href="{% url 'conversation' obj %}">
+        <li>{{obj}}</li>
+    </a>
+     {% endfor%}
+</ul> -->
+
+<!-- <h2>List of groups</h1> -->
+<!-- {% comment %} {% for gname in group_name_list %}
+
+    <li>{{ gname }}</li>
+
+{% endfor %} {% endcomment %} -->
+
+<!-- {% for gname, gid in group_dict.items %}
+    <a href =" {% url 'groupDetail' gid %}">
+        <li> {{gname}}:  {{gid}} </li>
+    </a>
+{% endfor %} -->
+
+<!-- {% if user.is_staff %}
+    <a href=" {% url 'createGroup' %}">
+        <button>Create group</button>
+    </a>
+
+{% endif %} -->
+
+<div class="container">
+    <div class="row">
+      <nav class="menu">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <div class="c-contact__avatar" style="background-color: white; color: black">{{first_char}}</div>
+        </a>
+        
+        <ul class="items">
+          <a href="#popup2">
+            <li class="item" style="margin-top: 80px;">
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </li>
+          </a>
+          <a href="#popup1">
+          <li class="item">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+          </li>
+          </a>
+          <a href="#popup3">
+            <li class="item">
+              <i class="fa fa-clipboard" aria-hidden="true"></i>
+            </li>
+            </a>
+            <li class="item">
+                <a  href="{% url 'logout'%}?next={{request.path}}" style="text-decoration: none;color:yellow;"><i class="fa fa-power-off" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+      </nav>
+      <div id="chat-container">
+        <div id="search-container">
+            <input type="text" placeholder="Search" />        
+        </div>
+        <div id="conversation-list">
+                {% for obj in unique_list %}
+
+            <div class="conversation active">
+              <div class="c-contact__avatar" style="background-color:red; color:white">{{obj.0}}</div>
+              <div class="title-text"><a href="{% url 'conversation' obj %}">
+                    {{obj}}
+                    </a>
+                </div>
+                <div class="created-date">
+                May 14 
+                </div>
+                <div class="conversation-message">
+                What’s up, Doc?
+                </div>
+            </div>
+     
+             {% endfor%}
+          
+             
+            <!-- <div class="conversation">
+                <img src="https://images.unsplash.com/photo-1589421355129-0f0f2a69a58b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" width="45" height="30" alt="Elmer Fudd" />
+                <div class="title-text">
+                    Elmer Fudd
+                </div>
+                <div class="created-date">
+                    1 yr ago
+                </div>
+                <div class="conversation-message">
+                    Be very, very quiet
+                </div>
+            </div> -->
+            
+            
+        </div>
+        <div id="new-message-container">
+            <a href="#">+</a>
+        
+        </div>
+        <div id="chat-title">
+            <span>Welcome To Gupshup</span>
+           <div class="header-icons">
+            <i class="fa fa-info-circle"></i>
+           </div>
+         
+        </div>
+        <div id="chat-message-list">
+            <div class="msg-inbox">
+                <div class="chats">
+                    <div class="msg-page">
+                        
+                        <div class="received-chats">
+                            <div class="received-chats-img">
+                                <!-- <img src="https://images.unsplash.com/photo-1589421355129-0f0f2a69a58b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" width="40" height="30" alt="Buggs Bunny"/> -->
+                            </div>
+                            <div class="received-msg">
+                                <div class="received-msg-inbox">
+                                    <!-- <p>Hey marvin how r u?</p>
+                                    <span class="time"> 10.10 AM | 14 May 2020</span> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="outgoing-chats">
+               
+                            <div class="outgoing-chats-msg">
+                 
+                                <!-- <p>I am fine wbu?</p>
+                                <span class="time"> 10.11 AM | 14 May 2020</span> -->
+                            </div>
+                  
+                        <div class="outgoing-chats-img">
+                             <!-- <img src="marvin.jpg" width="40" height="35" alt="Marvin The Martian"/> -->
+                            </div>
+               
+                        </div>
+
+                        <div class="received-chats">
+                            <div class="received-chats-img">
+                                <!-- <img src="bugsbunny.jpg" width="40" height="30" alt="Buggs Bunny"/> -->
+                            </div>
+                            <div class="received-msg">
+                                <div class="received-msg-inbox">
+                                    <!-- <p>Nothing much just messing with daffy and elmer.</p>
+                                    <span class="time"> 10.11 AM | 14 May 2020</span> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="outgoing-chats">
+               
+                            <div class="outgoing-chats-msg">
+                 
+                                <!-- <p>I recently saw that episode of you making daffy look like a fool. Damn it was epic</p>
+                                <span class="time"> 10.12 AM | 14 May 2020</span> -->
+                            </div>
+                  
+                        <div class="outgoing-chats-img">
+                             <!-- <img src="marvin.jpg" width="40" height="35" alt="Marvin The Martian"/> -->
+                            </div>
+               
+                        </div>
+
+                        
+                        
+                        <div class="received-chats">
+                            <div class="received-chats-img">
+                                <!-- <img src="bugsbunny.jpg" width="40" height="30" alt="Buggs Bunny"/> -->
+                            </div>
+                            <div class="received-msg">
+                                <div class="received-msg-inbox">
+                                    <!-- <p>I feel bad for daffy though </p>
+                                    <span class="time"> 10.13 AM | 14 May 2020</span> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="outgoing-chats">
+               
+                            <div class="outgoing-chats-msg">
+                 
+                                <!-- <p>Hehe</p>
+                                <span class="time"> 10.15 AM | 14 May 2020</span> -->
+                            </div>
+                  
+                        <div class="outgoing-chats-img">
+                             <!-- <img src="marvin.jpg" width="40" height="35" alt="Marvin The Martian"/> -->
+                            </div>
+               
+                        </div>
+
+                        
+                        
+                        <div class="received-chats">
+                            <div class="received-chats-img">
+                                <!-- <img src="bugsbunny.jpg" width="40" height="30" alt="Buggs Bunny"/> -->
+                            </div>
+                            <div class="received-msg">
+                                <div class="received-msg-inbox">
+                                    <!-- <p>Well i hope ur life is also filled with excitement</p>
+                                    <span class="time"> 10.17 AM | 14 May 2020</span> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="outgoing-chats">
+               
+                            <div class="outgoing-chats-msg">
+                 
+                                <!-- <p>Ya i m having fun</p>
+                                <span class="time"> 10.18 AM | 14 May 2020</span> -->
+                            </div>
+                  
+                        <div class="outgoing-chats-img">
+                             <!-- <img src="marvin.jpg" width="40" height="35" alt="Marvin The Martian"/> -->
+                            </div>
+               
+                        </div>
+
+
+
+               
+
+               
+
+
+               </div>
+            </div>
+         </div>
+            
+            
+            
+            
+            
+            
+            
+        </div>
+        <div id="chat-form">
+           <div class="input-group">  
+  <input type="text" class="form-control" placeholder="write message...">
+           <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-paper-plane"></i></span>
+     </div>
+        </div>
+          
+        </div>
+
+        <div id="channel-container">
+                <h4>Channel</h4>     
+            </div>
+        
+        <div id="channel-list">
+            {% for gname, gid in group_dict.items %}
+            <div class="channel active">
+                <div class="channel-text"><a href =" {% url 'groupDetail' gid %}">
+                    {{gname}}: {{gid}}
+                </a>
+                    
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="channel active">
+                <div class="channel-text">
+                    Bugs2
+                </div>
+            </div>
+
+            <div class="channel active">
+                <div class="channel-text">
+                    Bugs3
+                </div>
+            </div>
+
+            <div class="channel active">
+                <div class="channel-text">
+                    Bugs4
+                </div>
+            </div>
+
+            <div class="channel active">
+                <div class="channel-text">
+                    Bugs5
+                </div>
+            </div>
+            {% if user.is_staff %}
+            <div id="channel-message-container">
+                <a href="{% url 'createGroup' %}">+</a>
+                
+            </div>
+            {% endif %}
+    </div>
+   
+      <!-- <div class="container" id="chatbox">
+        <div class="msg-header">
+           <div class="msg-header-img">
+           <img src="/images/dog.jpg">
+           </div>
+           <div class="active">
+              <h4> Tom </h4>
+              <h6>online </h6>
+           </div>
+           <div class="header-icons">
+              <i class="fa fa-info-circle" ></i>
+           </div>
+        </div>
+        
+        <div class="chat-page">
+        <div class="msg-inbox">
+              <div class="chats">
+                 <div class="msg-page">
+           
+                 <div class="received-chats">
+                 <div class="received-chats-img">
+              <img src="/images/cat (1).jpg">
+                 </div>
+                    <div class="received-msg">
+                    <div class="received-msg-inbox">
+                       <p>Spike, have you seen jerry around?</p>
+                       <span class="time"> 09.10 AM | 10 May 2020</span>
+                    </div>
+                    </div>
+                 </div>
+  
+  
+                 <div class="outgoing-chats">
+                 
+                    <div class="outgoing-chats-msg">
+                   
+                       <p>No idea buddy</p>
+                       <span class="time"> 09.17 AM | 10 May 2020</span>
+                    </div>
+                    
+      <div class="outgoing-chats-img">
+              <img src="/images/dog.jpg">
+                 </div>
+                 
+                 </div>
+  
+  
+  
+                 <div class="received-chats">
+                 <div class="received-chats-img">
+              <img src="/images/cat (1).jpg">
+                 </div>
+                    <div class="received-msg">
+                    <div class="received-msg-inbox">
+                       <p>If u find him tell him to call me</p>
+                       <span class="time"> 09.20 AM | 10 May 2020</span>
+                    </div>
+                    </div>
+                 </div>
+  
+  
+                 <div class="outgoing-chats">
+                 
+                    <div class="outgoing-chats-msg">
+                   
+                       <p>Okay sure</p>
+                       <span class="time"> 09.21 AM | 10 May 2020</span>
+                    </div>
+                    
+      <div class="outgoing-chats-img">
+              <img src="/images/dog.jpg">
+                 </div>
+                 
+                 </div>
+  
+  
+  
+                 </div>
+              </div>
+           </div>
+    
+  
+    <div class="msg-bottom">
+          <div class="input-group">  
+    <input type="text" class="form-control" placeholder="write message...">
+             <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-paper-plane"></i></span>
+       </div>
+          </div>
+          </div> 
+        </div>
+  </div> -->
+    </div>
+    <div id="popup1" class="overlay">
+      <div class="popup">
+        <h1>Personal Info</h1>
+        <a class="close" href="#">&times;</a>
+        <div class="profile">
+          <h2>First Name</h2>
+          <p>{{request.user.first_name}}</p>   
+          <h2>Last Name</h2>
+          <p>{{request.user.last_name}}</p>
+          <h2>Username</h2>
+          <p>{{request.user.username}}</p>
+          <h2>Email</h2>
+          <p>{{request.user.email}}</p>
+              <h2>Password </h2>
+              <p>••••••• <button class="btn">Change</button></p>
+        </div>
+      </div>
+    </div>
+    <div id="popup2" class="overlay">
+      <div class="popup">
+        <h1>Starred Message</h1>
+        <a class="close" href="#">&times;</a>
+        <div class="profile">
+        </div>
+      </div>
+    </div>
+    
+    <div id="popup3" class="overlay">
+      <div class="wrapper">
+        
+        <div class="header">
+        <h1>Task planner</h1>
+        <a class="close" href="#">&times;</a>
+        <input type="text" class="input" id="myInput" placeholder="What do you have to do?">
+        <button class="addBtn" onclick="addTask()">Add</button>
+      </div>
+        
+         <h2>To Do:</h2>
+      <ul>
+      </ul>
+      
+        <h2>Done:</h2>
+        <ul>
+        </ul>
+        </div>
+        </div>
+        <div id="popup4" class="overlay">
+          <div class="popup">
+            <h1>Group members</h1>
+            <a class="close" href="#">&times;</a>
+            
+          </div>
+          </div>
+          </div>
+
+
+<style>
+
+body{
+  
+  padding-top: 50px;
+  background-size: cover;
+  padding-left: 100px;
+
+  
+}
+.container {
+  padding:0;
+ position: relative;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.19), 0 6px 6px rgba(255, 255, 255, 0.23);
+  height: 580px;
+  background-color: #eee;
+  border-radius:10px; 
+  width: 1170px;
+}
+
+
+/* nav img{
+  border-radius: 50%;
+	border: 2px solid white;
+	padding: 5px;
+} */
+.c-contact__avatar {
+  width: 40px;
+  height: 40px;
+  color: black;
+  display: inline-block;
+  border-radius: 0.7rem;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+  background-position: center center;
+  background-color: var(--black--10);
+  background-size: cover;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 15px;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  font-size: 25px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.row{
+  color: #eee;
+}
+/* ===== MENU ===== */
+.row .menu {
+  float: left;
+  height: 550px;
+  width: 70px;
+  top:50px;
+  left:100px;
+  background-color: darkblue;
+  /* background: -webkit-linear-gradient(#4768b5, #35488e);
+  background: -o-linear-gradient(#4768b5, #35488e);
+  background: -moz-linear-gradient(#4768b5, #35488e);
+  background: linear-gradient(#4768b5, #35488e); */
+  /* box-shadow: 0 10px 20px rgba(0,0,0,0.19); */
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  
+}
+
+
+.menu .items {
+  list-style:none;
+  margin: auto;
+  padding: 0;
+}
+
+.menu .items .item {
+  height: 70px;
+  /* border-bottom: 1px solid #84c2f8; */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color: #9fb5ef;
+  font-size: 17pt;
+}
+
+.menu .items .item-active {
+  background-color:#035aa6;
+  color: #FFF;
+}
+
+.menu .items .item:hover {
+  cursor: pointer;
+  background-color: #4f6ebd;
+  color: #cfe5ff;
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+#popup1 .popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  height: 70%;
+  margin-left: 500px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+
+#popup1 h1 {
+  font-family: "Montserrat", sans-serif;
+  color:darkblue;
+  font-size: 2em;
+  margin-top: 40px;
+  margin-left: 70px;
+  margin-bottom: 35px;
+}
+
+#popup1 h2 {
+  color: #777777;
+  font-family: "Roboto", sans-serif;
+  width: 80%;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-left: 2px;
+}
+
+#popup1 p {
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(to right, #3f51b6, rgba(126, 184, 211, 0.5)) 1 0%;
+  border-top: 0;
+  width: 80%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.7em;
+  padding: 7px 0;
+  color: #070707;
+}
+
+#popup1 .btn {
+  float: right;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-size: 10px;
+  border: none;
+  color: darkblue;
+}
+
+#popup1 .btn:hover {
+  text-decoration: underline;
+  font-weight: 900;
+}
+
+#popup2 .popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  height: 70%;
+  margin-left: 500px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+#popup4 .popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  height: 70%;
+  margin-left: 500px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+
+/* Task Planner */
+
+@import url("https://fonts.googleapis.com/css?family=Quicksand&subset=latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Pacifico&subset=latin-ext");
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+.wrapper {
+  box-shadow: 2px 2px 8px rgba(191, 191, 191, 0.8);
+  border: 1px rgba(226, 183, 193, 0.5) solid;
+  border-radius: 4px;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fef9ff;
+  width: 700px;
+  height: 100%;
+  padding-bottom: 30px;
+  font-family: Quicksand, sans-serif;
+  font-size: 20px;
+  
+}
+
+.header .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.header .close:hover {
+  color: white;
+}
+.wrapper .header {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.wrapper .header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.wrapper h1 {
+  font-size: 40px;
+  font-family: Pacifico;
+  font-weight: 100;
+  text-align: center;
+  color: #FBA229;
+  letter-spacing: 1px;
+}
+.wrapper h2 {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #035aa6;
+  margin-top: 40px;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-weight: 100;
+}
+.wrapper .remove-button {
+  position: absolute;
+  font-size: 110%;
+  top: 0;
+  color: #035aa6;
+  right: 10px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.wrapper button {
+  box-shadow: 1px 1px 4px rgba(191, 191, 191, 0.8);
+  border: 2px #fff solid;
+  border-radius: 8px;
+  position: absolute;
+  margin-left: 40px;
+  background-color: #FBA229;
+  color: #fff;
+  width: 85px;
+  height: 35px;
+  transition: 0.1s ease-in-out;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: Quicksand, sans-serif;
+}
+.wrapper button:hover {
+  background-color: #035aa6;
+}
+.wrapper button:focus, .wrapper button:active {
+  background-color:#FBA229 ;
+  margin-top: 1px;
+}
+.wrapper .input {
+  box-shadow: 2px 2px 8px rgba(191, 191, 191, 0.8);
+  position: relative;
+  border: 0;
+  border-bottom: 1.5px #035aa6 solid;
+  border-radius: 4px;
+  width: 300px;
+  height: 33.3333333333px;
+  padding: 6.6666666667px;
+  color: #777374;
+  font-family: Quicksand, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+.wrapper .input::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: Quicksand, sans-serif;
+  font-weight: 500;
+  color: #999799;
+}
+.wrapper .input:-moz-placeholder {
+  font-size: 14px;
+  font-family: Quicksand, sans-serif;
+  font-weight: 500;
+  color: #999799;
+}
+.wrapper .input::-moz-placeholder {
+  font-size: 14px;
+  font-family: Quicksand, sans-serif;
+  font-weight: 500;
+  color: #999799;
+}
+.wrapper .input:-ms-input-placeholder {
+  font-size: 14px;
+  font-family: Quicksand, sans-serif;
+  font-weight: 500;
+  color: #999799;
+}
+.wrapper .input:focus, .wrapper .input:active {
+  width: 60%;
+  transition: 0.4s ease-in-out;
+}
+.wrapper ul {
+  margin: 0;
+  padding-left: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.wrapper ul li {
+  cursor: pointer;
+  color: #777374;
+  list-style-type: none;
+  padding: 10px;
+  margin-left: 50px;
+  margin-right: 70px;
+  text-decoration: none;
+  background-color: none;
+  transition: 0.1s ease-in-out;
+  box-shadow: 0 1px 4px rgba(191, 191, 191, 0.7);
+}
+.wrapper ul li:hover {
+  background-color: rgba(242, 239, 241, 0.8);
+  color: #FBA229;
+}
+.wrapper ul li .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+.wrapper hr {
+  border: 0.5px #777374 solid;
+  opacity: 0.3;
+}
+
+
+
+
+
+
+#square {
+  position: relative;
+	width: 1100px;
+	height: 550px;
+  display: block;
+  margin: auto;
+	background: white;
+  z-index: 1;
+}
+	
+#leftSquare {
+	width: 26%;
+	height: 100%;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  /* background:#4D394B; */
+  background-color: #035aa6; 
+  background-size: cover;
+  border-radius: 0%;
+  z-index: 1;
+}
+
+#highlight-channel{
+  position: absolute;
+  top: 24%;
+  width: 90%;
+  border-top-right-radius: 1%;
+   border-bottom-right-radius: 1%;
+  border: 10px solid #4C9689;
+}
+
+#header {
+	width: 75%;
+  display: block;
+  margin:  auto;
+	height: 15%;
+  position: absolute;
+  top: 0%;
+  left: 25%;
+	background:none;
+  background-size: cover;
+  border-radius: 0%;
+  z-index: 1;
+}
+
+#circle{
+    position: absolute;
+    border-radius: 50%;
+    left: 13%;
+    top: 11%;
+    width: 4%;
+    height: 2%;
+    display: block;
+    background: #4C9689;
+    margin: auto;
+    z-index: 3;
+  }
+
+#circle2{
+    position: absolute;
+    border-radius: 50%;
+    left: 16%;
+    top: 60%;
+    width: 4%;
+    height: 2%;
+    display: block;
+    background: #4C9689;
+    margin: auto;
+    z-index: 3;
+  }
+#circle3{
+    position: absolute;
+    border-radius: 50%;
+    left: 16%;
+    top: 65%;
+    width: 4%;
+    height: 2%;
+    display: block;
+    background: #4C9689;
+    margin: auto;
+    z-index: 3;
+  }
+
+.brand{
+  position: absolute;
+  display: block;
+  top: 38%;
+  left: 25%;
+  margin: auto;
+  width: 50%;
+  height: 60%;
+  z-index: 1;
+  
+}
+
+#icons{
+  
+  padding-bottom: 5px;
+  
+}
+
+.title{
+  position: absolute;
+  top: 5%;
+  color: white;
+  font-family:"lato";
+  font-size: 20px;
+  font-weight: 800;
+  padding-left: 10%;
+  text-align: left;
+  z-index: 3;
+}
+#subtitle{
+  position: absolute;
+  left: 19%;
+  top: 6%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.5;
+  font-weight: 100;
+  text-align: center;
+  z-index: 3;
+}
+#subtitle2{
+  position: absolute;
+  left: 22%;
+  top: 54.7%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.5;
+  font-weight: 100;
+  text-align: center;
+  z-index: 3;
+}
+#subtitle3{
+  position: absolute;
+  left: 22%;
+  top: 59.7%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.5;
+  font-weight: 100;
+  text-align: center;
+  z-index: 3;
+}
+
+#channel-title{
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 18px;
+  font-weight: 800;
+  padding-left: 3%;
+  text-align: left;
+  z-index: 3;
+}
+#channels{
+  position: absolute;
+  left: 13%;
+  top: 14%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.6;
+  font-weight: 400;
+  text-align: center;
+  z-index: 3;
+}
+
+.add{
+  position: absolute;
+  right: -72%;
+  opacity: 0.6;
+  top: 5%;
+  
+}
+
+.add-two{
+  position: absolute;
+  right: -15%;
+  opacity: 0.6;
+  top: 5%;
+  z-index: 3;
+  
+}
+
+.star{
+  padding-left: 3%;
+  opacity: 0.6;
+  z-index: 3;
+  
+}
+.user{
+  padding-left: 4%;
+  opacity: 0.6;
+  z-index: 3;
+  
+}
+.pin{
+  padding-left: 4%;
+  opacity: 0.4;
+  z-index: 3;
+  
+}
+.phone{
+  position: absolute;
+  top: 45%;
+  right: 48%;
+  opacity: 0.6;
+  z-index: 3;
+}
+  
+.cog{
+  position: absolute;
+  top: 45%;
+  right: 42%;
+  opacity: 0.6;
+  z-index: 3;
+  
+}
+
+.details{
+  position: absolute;
+  top: 45%;
+  right: 36%;
+  opacity: 0.6;
+  z-index: 3;
+  
+}
+#line3{
+  
+  position: absolute;
+  right: 33%;
+  top: 8.5%;
+  font-family:"lato";
+  font-size: 18px;
+  opacity: 0.5;
+  font-weight: 100;
+  color: #2C2D30;
+  
+}
+
+.search-glass{
+   position: absolute;
+  top: 43%;
+  right: 28%;
+  opacity: 0.5;
+  z-index: 3;
+  
+}
+
+.at{
+  
+  position: absolute;
+  top: 45%;
+  right: 12%;
+  opacity: 0.6;
+  z-index: 3;
+}
+
+.star-o{
+  
+   position: absolute;
+  top: 45%;
+  right: 7%;
+  opacity: 0.6;
+  z-index: 3;
+  
+}
+
+/* .menu{
+  
+     position: absolute;
+  top: 45%;
+  right: 3%;
+  opacity: 0.6;
+  z-index: 3;
+} */
+
+.search{
+  position: absolute;
+  right: 17%;
+  top: 38%;
+  height: 30%;
+  width: 14%;
+  font-weight: 100;
+  padding-left: 20px;
+  font-family:"lato";
+  font-size: 12px;
+  opacity: 0.6;
+  color: #2C2D30;
+  
+}
+
+#line{
+  
+  position: absolute;
+  left: 7%;
+  top: 46.5%;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.5;
+  font-weight: 100;
+  color: #2C2D30;
+  
+}
+#line2{
+  
+  position: absolute;
+  left: 14%;
+  top: 46.5%;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.5;
+  font-weight: 100;
+  color: #2C2D30;
+  
+}
+
+.bottom-header-line{
+  margin-left: 8px;
+  width: 98%;
+  margin-top: 0;
+  
+}
+
+
+#channel{
+  position: absolute;
+  left: 16%;
+  top: 20%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 1.0;
+  font-weight: 100;
+  text-align: center;
+  z-index: 3;
+}
+#messages{
+  position: absolute;
+  left: 13%;
+  top: 50%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.6;
+  font-weight: 400;
+  text-align: center;
+  z-index: 3;
+}
+#channel2{
+  position: absolute;
+  left: 16%;
+  top: 26%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  font-weight: 100;
+  text-align: center;
+  z-index: 3;
+}
+#channel3{
+  position: absolute;
+  left: 16%;
+  top: 32%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.6;
+  font-weight: 100;
+  text-align: center;
+  z-index: 3;
+}
+#channel4{
+  position: absolute;
+  left: 16%;
+  top: 38%;
+  color: white;
+  font-family:"lato";
+  font-size: 13px;
+  opacity: 0.6;
+  font-weight: 100;
+  text-align: center;
+  z-index: 3;
+}
+
+#highlight{
+  
+  background: #4C9689;
+  
+}
+#light{
+  margin-left: 5px;
+  opacity: 0.5;
+}
+
+#opacity{
+  color: white;
+  font-weight: 800;
+  opacity: 0.6;
+}
+
+#bold{
+  color: white;
+  font-weight: 800;
+  opacity: 1.0;
+}
+
+
+.bell{
+  position: absolute;
+  color: #D0CDD0;
+  opacity: 0.6;
+  top: 5%;
+  left: 89%;
+  
+}
+
+.down{
+   position: absolute;
+  color: #D0CDD0;
+  opacity: 0.3;
+  top: 4.25%;
+  left: 80%;
+  
+}
+
+#message-area{
+  
+  position: absolute;
+  background: none;
+  width: 70%;
+  right: 2%;
+  top: 18%;
+  display: block;
+  margin:  auto;
+  
+}
+
+#message-area-two{
+  
+  position: absolute;
+  background: none;
+  width: 70%;
+  right: 2%;
+  top: 30%;
+  display: block;
+  margin:  auto;
+  
+}
+#message-area-three{
+  
+  position: absolute;
+  background: none;
+  width: 70%;
+  right: 2%;
+  top: 42%;
+  display: block;
+  margin:  auto;
+  
+}
+#message-area-four{
+  
+  position: absolute;
+  background: none;
+  width: 70%;
+  right: 2%;
+  top: 54%;
+  display: block;
+  margin:  auto;
+  
+}
+#message-area-five{
+  
+  position: absolute;
+  background: none;
+  width: 70%;
+  right: 2%;
+  top: 66%;
+  display: block;
+  margin:  auto;
+  
+}
+#message-area-six{
+  
+  position: absolute;
+  background: none;
+  width: 70%;
+  right: 2%;
+  top: 78%;
+  display: block;
+  margin:  auto;
+  
+}
+.person-one{
+  width: 50px;
+  height: 50px;
+  border: white;
+}
+
+.person-img-one{
+    border-radius: 10%;
+}
+
+#person-name{ 
+  position: absolute;
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 15px;
+  font-weight: 800;
+  padding-left: 10%;
+  top: -5%;
+  text-align: left;
+  z-index: 3;
+}
+
+#time{
+  color: #2C2D30;
+  padding-left: 5px;
+  font-family:"lato";
+  font-size: 11px;
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+#person-text{ 
+  position: absolute;
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 15px;
+  margin-bottom:0;
+  font-weight: 400;
+  opacity: 0.7;
+  padding-left: 10%;
+  top: 25%;
+  text-align: left;
+  z-index: 3;
+}
+
+.person-two{
+  width: 50px;
+  height: 50px;
+  border: white;
+}
+
+.person-img-two{
+    border-radius: 10%;
+}
+
+#person-name-two{ 
+  position: absolute;
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 15px;
+  font-weight: 800;
+  padding-left: 10%;
+  top: -5%;
+  text-align: left;
+  z-index: 3;
+}
+
+#person-text-two{ 
+  position: absolute;
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 15px;
+  margin-bottom:0;
+  font-weight: 400;
+  opacity: 0.7;
+  padding-left: 10%;
+  top: 25%;
+  text-align: left;
+  z-index: 3;
+}
+
+.person-three{
+  width: 50px;
+  height: 50px;
+  border: white;
+}
+
+.person-img-three{
+    border-radius: 10%;
+}
+
+#person-name-three{ 
+  position: absolute;
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 15px;
+  font-weight: 800;
+  padding-left: 10%;
+  top: -5%;
+  text-align: left;
+  z-index: 3;
+}
+#person-text-three{ 
+  position: absolute;
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 15px;
+  margin-bottom:0;
+  font-weight: 400;
+  opacity: 0.7;
+  padding-left: 10%;
+  top: 25%;
+  text-align: left;
+  z-index: 3;
+}
+
+.person-four{
+  width: 50px;
+  height: 50px;
+  border: white;
+}
+
+.person-img-four{
+    border-radius: 10%;
+}
+
+#person-name-four{ 
+  position: absolute;
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 15px;
+  font-weight: 800;
+  padding-left: 10%;
+  top: -5%;
+  text-align: left;
+  z-index: 3;
+}
+#person-text-four{ 
+  position: absolute;
+  color: #2C2D30;
+  font-family:"lato";
+  font-size: 15px;
+  margin-bottom:0;
+  font-weight: 400;
+  opacity: 0.7;
+  padding-left: 10%;
+  top: 25%;
+  text-align: left;
+  z-index: 3;
+}
+
+
+.search-bottom{
+  position: absolute;
+  display: block;
+  margin: auto;
+  left: 28%;
+  bottom: 3%;
+  height: 5%;
+  width: 70%;
+  font-weight: 100;
+  padding-left: 28px;
+  font-family:"lato";
+  font-size: 12px;
+  opacity: 0.6;
+  color: #2C2D30;
+}
+
+.smile{
+  
+  position: absolute;
+  display: block;
+  margin: auto;
+  bottom: 4%;
+  right: 3%;
+  opacity: 0.6;
+  color: #2C2D30;
+}
+
+.plus{
+  
+  position: absolute;
+  display: block;
+  margin: auto;
+  bottom: 3.75%;
+  left: 28.75%;
+  opacity: 0.3;
+  color: #2C2D30;
+}
+
+#line-bottom{
+   position: absolute;
+  display: block;
+  margin: auto;
+  bottom: 3.1%;
+  left: 30.75%;
+  opacity: 0.1;
+  font-family:"lato";
+  font-size: 22px;
+  opacity: 0.3;
+  font-weight: 100;
+  color: #2C2D30;
+}
+
+.settings-popup {
+  background: white;
+	border-radius: 20px/10px;
+	box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);
+  font-size: 13px;
+	opacity: 0;
+	padding: 10px 0;
+	position: absolute;
+	left: 288px;
+	text-align: left;
+	top: 50px;
+	transition: .15s;
+	transform: scale(1, 0);
+	transform-origin: 50% 0;
+  width: 160px;
+  height: 143px;
+  z-index: 2;
+  border-top: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 2px solid rgba(0, 0, 0, .3);
+}
+
+.settings-popup:after, .settings-popup:before {
+  border: 7px solid transparent;
+	border-bottom: 7px solid white;
+	border-top: none;	
+	content: "";
+	position: absolute;
+	left: 45px;
+	top: -10px;
+  border-top: 3px solid rgba(0, 0, 0, .2);
+}
+
+.settings-popup:before {
+  border-bottom: 7px solid rgba(0, 0, 0, .25);
+  top: -11px;
+}
+
+.settings-popup:after {
+  border-top-color: transparent;
+}
+
+#chkSettings {
+	display: none;
+}
+
+#chkSettings:checked + .settings-popup {
+	opacity: 1;
+	transform: scale(1, 1);
+}
+
+.settings-popup ul li a, .settings-popup ul li a:link, .settings-popup ul li a:visited {
+  color: #999;
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+}
+
+.settings-popup ul li a:hover {
+  background: rgba(0, 0, 0, .05);
+}
+
+div.settings-popup ul {
+  list-style-type: none;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 10;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1.8;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  height: 50%;
+  position: fixed;
+  transition: all 5s ease-in-out;
+  z-index: 11;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+
+
+/* chatbox v2 */
+
+#chat-container{
+  display: grid;
+  grid:
+      'search-container chat-title' 71px 
+      'conversation-list chat-message-list' 1fr
+      'new-message-container chat-form' 78px
+      /275px 1fr;
+  min-width: 800px;
+  max-width: 900px;
+  max-height: 800px;
+  width: 100%;
+  height: 80vh;
+  background: #eee;
+  border-radius: 10px;
+  position:relative;
+}
+
+#search-container,
+#conversation-list,
+#new-message-container {
+  background: darkblue;
+}
+
+#search-container {
+  display: grid;
+  align-items: center;
+  padding: 0 20px;
+  grid-area: search-container;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px -1px rgba(0,0,0,0.75);
+  z-index: 1;
+  margin-left: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+}
+
+#search-container input{
+  color: white;
+  outline: none;
+  font-weight: bold;
+  border-radius: 2px;
+  height: 30px;
+  border: 0;
+  padding-left: 20px;
+  padding-right: 10px;
+  font-size: 1.4rem;
+  background: url('search.jpeg') no-repeat rgba(255,255,255,0.3);
+  cursor: pointer;
+  background-position: 8px center;
+  background-size: 20px 20px;
+  width: 210px;
+}
+
+#search-container input::placeholder{
+  color: white;
+  font-weight: bold;
+}
+
+#channel-container {
+  display: grid;
+  align-items: center;
+  padding: 15px 15px 10px 15px;
+  grid-area: search-container;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px -1px rgba(0,0,0,0.75);
+  z-index: 1;
+  margin-left: 930px;
+  margin-top: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  width: 130px;
+  background-color: darkblue;
+}
+
+#channel-container h4{
+    color: white;
+    font-weight: bolder;
+
+}
+
+
+
+#conversation-list{
+  grid-area: conversation-list;
+  overflow-y: scroll;
+  margin-top: 10px;
+  margin-left: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border-radius: 10px;
+}
+
+.conversation{
+  display: grid;
+  grid-template-columns: 40px 1fr max-content;
+  grid-gap: 10px;
+  
+  color: #ddd;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #002C88;
+  padding: 10px 20px 10px 15px;
+  
+}
+
+.conversation.active,
+.conversation:hover{
+  background: #0048AA;
+}
+
+.conversation:hover{
+  cursor: pointer;
+}
+
+.conversation > img{
+  grid-row: span 2;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.title-text{
+  font-weight: bold;
+  color: #eee;
+  padding-left: 5px;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  padding-left: 10px;
+  padding-top: 20px;
+}
+
+.title-text a{
+    text-decoration: none;
+    color: white;
+}
+
+.created-date{
+  font-weight: bold;
+  color: #eee;
+}
+
+.conversation-message{
+  grid-column: span 2;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+#new-message-container{
+  display: grid;
+  grid: 40px / 40px;
+  align-content: center;
+  grid-area: new-message-container;
+  border-top: 1px solid rgba(0,0,0,0.25);
+  border-radius: 10px;
+  padding: 0 15px;
+  margin-left: 20px;
+  margin-top: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+}
+
+#new-message-container a{
+  display: grid;
+  place-content: center center;
+  color: white;
+  text-decoration: none;
+  font-size: 3.6rem;
+}
+
+#channel-message-container{
+    display: grid;
+  grid: 40px / 40px;
+  align-content: center;
+  border-top: 1px solid rgba(0,0,0,0.25);
+  border-radius: 100px;
+  padding-right:15px;
+  padding-left: 35px;
+  margin-top: 30px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  background-color: darkblue;
+}
+
+#channel-message-container a{
+    display: grid;
+  place-content: center center;
+  color: white;
+  text-decoration: none;
+  font-size: 3.6rem;
+  padding-top: 10px;
+}
+
+#chat-title,
+#chat-form{
+  background: #eee;
+}
+
+#chat-title{
+  display: grid;
+  grid: 50px / 1fr 50px;
+  align-items: center;
+  align-content: center;
+  grid-area: chat-title;
+  color: darkblue;
+  font-weight: bold;
+  font-size: 2.0rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px -1px rgba(0,0,0,0.75);
+  padding: 0 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  margin-left: 10px;
+}
+
+#chat-title > img{
+  cursor: pointer;
+}
+
+#chat-message-list{
+  grid-area: chat-message-list;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 0 20px;
+  overflow-y: scroll;
+  border-radius:10px;
+  margin-left: 10px;
+  margin-top: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+}
+
+.message-row{
+  display: grid;
+  grid-template-columns: 70%;
+  margin-bottom: 20px;
+}
+
+.message-content{
+  display: grid;
+}
+
+.message-row img{
+  border-radius: 100%;
+  grid-row: span 2;
+}
+.message-text{
+  padding: 9px 14px;
+  font-size: 1.6rem;
+  margin-bottom: 5px;
+}
+
+.message-time{
+  font-size: 1.3rem;
+  color: #777;
+}
+
+
+#chat-form{
+  display: grid;
+  grid: 50px/32px fr;
+  align-content: center;
+  align-items: center;
+  grid-gap: 15px;
+  grid-area: chat-form;
+  border-radius:10px;
+  border-top: 1px solid rgba(0,0,0,0.25);
+  padding-left: 42px;
+  padding-right: 22px;
+  margin-top: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  margin-left: 10px;
+}
+
+#chat-form input{
+  outline:none;
+  padding:15px;
+  border: 2px solid #ddd;
+  color: #330;
+  border-radius: 6px;
+  font-size: 1.4rem;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.header-icons{
+ width: 20px;
+ float: right;
+ margin-top:100 px;
+ margin-right: 50px;
+}
+
+.header-icons .fa
+{
+ color: darkblue;
+ cursor: pointer;
+ margin: 10px;
+}
+
+.input-group
+{
+ float: right;
+ margin-top:10px;
+ margin-right:10px;
+ outline: none !important;
+ border-radius: 7px;
+ width: 95% !important;
+ background-color: #fff;
+}
+.input-group-text
+{
+ background: transparent !important;
+ border: none !important;
+}
+
+.input-group .fa
+{
+ color: darkblue;
+ float: right;
+ cursor: pointer;
+}
+
+
+
+.msg-inbox
+{
+ border: 0px solid #ccc;
+ overflow: hidden;
+ padding-bottom: 0px;
+}
+
+.chats
+{
+ padding: 30px 15px 0 25px;
+}
+
+.msg-page
+{ 
+ width: 100%;
+ height: 450px;
+ overflow-y: scroll;
+}
+
+.received-chats-img
+{
+ display:inline-block;
+ width: 30px;
+ float: left;
+}
+
+.received-msg
+{
+ display: inline-block;
+ padding: 0 0 0 10px;
+ vertical-align: top;
+ width: 92%;
+}
+
+.received-msg-inbox p
+{
+ background: #efefef none repeat scroll 0 0;
+ border-radius: 10px;
+ color: #646464;
+ font-size: 12px;
+ margin: 0;
+ padding: 5px 10px 5px 12px;
+}
+
+.time
+{
+ color: #777;
+ display: block; 
+ font-size: 11px;
+ margin: 10px 0 0;
+}
+
+.outgoing-chats
+{
+  overflow: hidden;
+  margin: 26px 20px;
+}
+
+.outgoing-chats-msg p
+{
+ background: #0048AA none repeat scroll 0 0;
+ color: #fff;
+ border-radius: 10px;
+ font-size: 12px;
+ margin: 0;
+ color: #fff;
+ padding: 5px 10px 5px 12px;
+ width: 100%
+}
+
+.outgoing-chats-msg
+{
+ float: left;
+ width: 46%;
+ margin-left: 45%;
+} 
+
+.outgoing-chats-img
+{
+ display: inline-block;
+ width: 30px;
+ float: right;
+}
+
+
+#channel-list{
+  grid-area: conversation-list;
+  overflow-y: scroll;
+  margin-top: 25px;
+  margin-left: 940px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border-radius: 10px;
+  width: 40%;
+  position: relative;
+  height: 70%;
+}
+.channel{
+  color: #ddd;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #002C88;
+  padding: 10px 20px 10px 15px;
+  margin-top: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border-radius: 10px;
+  
+}
+
+.channel.active,
+.channel:hover{
+  background: #0048AA;
+}
+
+.channel:hover{
+  cursor: pointer;
+}
+
+.channel-text{
+  font-weight: bold;
+  color: #eee;
+  padding-left: 5px;
+  font-size: 15px;
+}
+
+.channel-text a{
+    text-decoration: none;
+    color: white;
+}
+
+
+
+</style>
+
+<script type="text/javascript">
+    
+
+    
+
+  // button.onclick = starred;
+  
+  function starred(){
+      console.log("clicked");
+      var stard = document.getElementById("starred");
+      stard.classList.toggle("highlight");
+    // var message = document.getElementById("starred").textContent;
+  
+    // var mes = document.getElementById("remessage");
+  
+    // mes.textContent = message;
+  
+    // console.log(message);
+  }     
+  
+  // const button = document.querySelector(".wrapper button");
+  const input = document.querySelector(".wrapper input");
+  const list = document.querySelectorAll(".wrapper ul");
+  const longInput = document.getElementsByClassName("wrapper input");
+  
+  
+  
+  const selectInput = () => {
+    console.log("clicked");
+    input.style.width = "80%";
+  };
+  
+  input.onclick = selectInput;
+  
+  const markDone = event => {
+    
+    const li = event.target;
+    li.style.textDecoration = "line-through";
+    li.style.fontWeight = "normal";
+    li.style.backgroundColor = "rgb(242, 239, 241)";
+  
+    list[1].appendChild(li);
+  };
+  
+  const removeTask = event => {
+    const li = event.target;
+    list[1].removeChild(li);
+  };
+  
+  list[1].onclick = removeTask;
+  
+  const addTask = () => {
+    console.log("clicked");
+    if (input.value.trim() !== "") {
+      const li = document.createElement("li");
+      li.innerText = input.value;
+  
+      li.onclick = markDone;
+      // console.warn(li);
+      list[0].appendChild(li);
+      input.value = "";
+    }
+  };
+  
+  // button.onclick = addTask;
+  
+  input.addEventListener("keyup", function(enter) {
+    if (enter.keyCode === 13) {
+      addTask();
+    }
+  });
+  
+  </script>
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends "base_generic.html" %}
+
+{% comment %}
+
+  In this page, add the following:
+  -> welcome to our chat application and etc
+  -> login to continue
+  ->decoration and stuff
+
+{% endcomment %}
+
+{% block content %}
+
+  <!-- {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %} -->
+
+  <!-- <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Lost password?</a></p> -->
+  <nav class="navbar navbar-expand-md navbar-light" style="background-color:  #e3f2fd;" >
+    <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="/static/logo3.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      <span class="head">Gupshup</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto" id="menu">
+        <li class="nav-item" style="margin-right: 40px;">
+          <a class="nav-link signin" href="#0"><span class="s1">Sign In</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link signup" href="#0"><span class="s2">Sign Up</span></a>
+        </li>
+      </ul>
+    </div>
+
+    </div>
+    </nav>
+        <!-- <nav id="navbar" class="">
+          <div class="nav-wrapper">
+             Navbar Logo 
+            <div class="logo">
+            
+              <a href="/home"><img src="/images/logo3.png"> Gupshup</a>
+            </div>
+        
+            
+            <ul id="menu">
+              <li><a class="signin" href="#0">Sign In</a></li>
+           <li><a class="signup" href="#0">Sign Up</a></li>
+            </ul>
+          </div>
+  </nav> -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6" id="description">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac adipiscing feugiat felis blandit ut orci. Ipsum, tristique adipiscing lorem fermentum viverra. In tortor ut egestas pharetra leo malesuada. Eget egestas habitant aliquam volutpat in nibh eget neque urna.</p>
+        <button type="button" class="btn btn-success"><a href="/">Get Started</a></button>
+      </div>
+      <div class="col-sm-6">
+        <div class="homeimg">
+          <img src="/static/devices.png">
+        </div>
+      </div>
+    </div>
+    
+  </div>
+      <!-- <div class="logo">
+          <img src="/images/logo2.png">
+      </div> -->
+  
+  <!--signin/signup --->
+  <div class="user-modal">
+  <div class="user-modal-container">
+    <ul class="switcher">
+      <li><a href="#0">Sign in</a></li>
+      <li><a href="#0">New account</a></li>
+    </ul>
+
+    <div id="login">
+      <form class="form" method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
+        <p class="fieldset">
+          <label class="image-replace email" for="signin-email">Username</label>
+          <input class="full-width has-padding has-border" id="signin-email" type="username" placeholder="Username" name="username">
+          <span class="error-message">An account with this email address does not exist!</span>
+        </p>
+
+        <p class="fieldset">
+          <label class="image-replace password" for="signin-password">Password</label>
+          <input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" name="password">
+          <a href="#0" class="hide-password">Show</a>
+          <span class="error-message">Wrong password! Try again.</span>
+        </p>
+
+        <p class="fieldset">
+          <input type="checkbox" id="remember-me" checked>
+          <label for="remember-me">Remember me</label>
+        </p>
+
+        <p class="fieldset">
+          <input class="full-width" type="submit" value="Login">
+          <input type="hidden" name="next" value="{{ next }}" />
+        </p>
+      </form>
+      
+      <p class="form-bottom-message"><a href="#0">Forgot your password?</a></p>
+      <!-- <a href="#0" class="close-form">Close</a> -->
+    </div>
+
+    <div id="signup">
+      <form class="form" method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
+        <p class="fieldset">
+          <label class="image-replace username" for="signup-username">Username</label>
+          <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
+          <span class="error-message">Your username can only contain numeric and alphabetic symbols!</span>
+        </p>
+
+        <p class="fieldset">
+          <label class="image-replace email" for="signup-email">E-mail</label>
+          <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
+          <span class="error-message">Enter a valid email address!</span>
+        </p>
+
+        <p class="fieldset">
+          <label class="image-replace password" for="signup-password">Password</label>
+          <input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password">
+          <a href="#0" class="hide-password">Show</a>
+          <span class="error-message">Your password has to be at least 6 characters long!</span>
+        </p>
+
+        <p class="fieldset">
+          <input type="checkbox" id="accept-terms">
+          <label for="accept-terms">I agree to the <a class="accept-terms" href="#0">Terms</a></label>
+        </p>
+
+        <p class="fieldset">
+          <input class="full-width has-padding" type="submit" value="Create account">
+        </p>
+      </form>
+
+      <!-- <a href="#0" class="cd-close-form">Close</a> -->
+    </div>
+
+    <div id="reset-password">
+      <p class="form-message">Lost your password? Please enter your email address.</br> You will receive a link to create a new password.</p>
+
+      <form class="form">
+        <p class="fieldset">
+          <label class="image-replace email" for="reset-email">E-mail</label>
+          <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+          <span class="error-message">An account with this email does not exist!</span>
+        </p>
+
+        <p class="fieldset">
+          <input class="full-width has-padding" type="submit" value="Reset password">
+        </p>
+      </form>
+
+      <p class="form-bottom-message"><a href="#0">Back to log-in</a></p>
+    </div>
+    <a href="#0" class="close-form">Close</a>
+  </div>
+</div>
+{% endblock %}
